@@ -94,15 +94,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+   <!-- bootstrap cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+
+    <!-- <style>
         body{ font: 14px sans-serif; }
         .wrapper{ width: 360px; padding: 20px; }
-    </style>
+    </style> -->
 </head>
 <body>
-    <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
+    <header class="header fixed-top">
+
+    <div class="container">
+
+    <div class="row align-items-center justify-content-between">
+
+        <a href="#home" class="logo">Health<span>IO.</span></a>
+
+    </div>
+
+    </header>
+    <div class="contact" id="contact">
+        <h2 class="heading">Login</h2>
+        <p style="text-align: center;">Please fill in your credentials to login.</p>
 
         <?php 
         if(!empty($login_err)){
