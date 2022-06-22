@@ -1,14 +1,23 @@
 <?php
-
 require_once "config.php";
+
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+
+
 if(isset($_POST['submit'])){
 
-   $name = mysqli_real_escape_string($conn, $_POST['name']);
-   $email = mysqli_real_escape_string($conn, $_POST['email']);
+   $name = mysqli_real_escape_string($link, $_POST['name']);
+   $email = mysqli_real_escape_string($link, $_POST['email']);
    $number = $_POST['number'];
    $date = $_POST['date'];
 
-   $insert = mysqli_query($conn, "INSERT INTO `contact_form`(name, email, number, date) VALUES('$name','$email','$number','$date')") or die('query failed');
+   $insert = mysqli_query($link, "INSERT INTO `contact_form`(name, email, number, date) VALUES('$name','$email','$number','$date')") or die('query failed');
 
    if($insert){
       $message[] = 'appointment made successfully!';
@@ -26,8 +35,8 @@ if(isset($_POST['submit'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Complete Responsive Dentist Website Design Tutorial</title>
-
+   <title>Uranium</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -48,17 +57,17 @@ if(isset($_POST['submit'])){
 
       <div class="row align-items-center justify-content-between">
 
-         <a href="#home" class="logo">dental<span>Care.</span></a>
+         <a href="#home" class="logo">Health<span>IO.</span></a>
 
          <nav class="nav">
             <a href="#home">home</a>
-            <a href="#about">about</a>
-            <a href="#services">services</a>
-            <a href="#reviews">reviews</a>
+            <a href="about.html">about</a>
+            <a href="services.html">services</a>
             <a href="#contact">contact</a>
+            
          </nav>
 
-         <a href="#contact" class="link-btn">make appointment</a>
+         <!-- <a href="#contact" class="link-btn">make appointment</a>  -->
 
          <div id="menu-btn" class="fas fa-bars"></div>
 
@@ -74,7 +83,20 @@ if(isset($_POST['submit'])){
 
 <section class="home" id="home">
 
+
    <div class="container">
+
+      <div class="row min-vh-100 align-items-center">
+         <div class="content text-center text-md-left">
+            <h3 >Hi, <b style="color: #00b8b8;"><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h3>
+            <p>let us brighten your smile</p>
+            <p>
+               <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+               <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
+            </p>
+         </div>
+      </div>
+   <!-- <div class="container">
 
       <div class="row min-vh-100 align-items-center">
          <div class="content text-center text-md-left">
@@ -84,15 +106,44 @@ if(isset($_POST['submit'])){
          </div>
       </div>
 
-   </div>
+   </div> -->
 
 </section>
 
 <!-- home section ends -->
+<!-- contact section starts  -->
+
+<section class="contact" id="contact">
+
+   <h1 class="heading">make appointment</h1>
+
+   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+      <?php 
+         if(isset($message)){
+            foreach($message as $message){
+               echo '<p class="message">'.$message.'</p>';
+            }
+         }
+      ?>
+      <span>your name :</span>
+      <input type="text" name="name" placeholder="enter your name" class="box" required>
+      <span>your email :</span>
+      <input type="email" name="email" placeholder="enter your email" class="box" required>
+      <span>your number :</span>
+      <input type="number" name="number" placeholder="enter your number" class="box" required>
+      <span>appointment date :</span>
+      <input type="datetime-local" name="date" class="box" required>
+      <input type="submit" value="make appointment" name="submit" class="link-btn">
+   </form>  
+
+</section>
+
+<!-- contact section ends -->
+
 
 <!-- about section starts  -->
 
-<section class="about" id="about">
+<!-- <section class="about" id="about">
 
    <div class="container">
 
@@ -113,13 +164,13 @@ if(isset($_POST['submit'])){
 
    </div>
 
-</section>
+</section> -->
 
 <!-- about section ends -->
 
 <!-- services section starts  -->
 
-<section class="services" id="services">
+<!-- <section class="services" id="services">
 
    <h1 class="heading">our services</h1>
 
@@ -163,13 +214,13 @@ if(isset($_POST['submit'])){
 
    </div>
 
-</section>
+</section> -->
 
 <!-- services section ends -->
 
 <!-- process section starts  -->
 
-<section class="process">
+<!-- <section class="process">
 
    <h1 class="heading">work process</h1>
 
@@ -195,7 +246,7 @@ if(isset($_POST['submit'])){
 
    </div>
 
-</section>
+</section> -->
 
 <!-- process section ends -->
 
@@ -208,8 +259,8 @@ if(isset($_POST['submit'])){
    <div class="box-container container">
 
       <div class="box">
-         <img src="images/pic-1.png" alt="">
-         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos, iure? Nemo est aspernatur voluptatum id, laboriosam asperiores iure omnis alias?</p>
+         <img src="images/1dcc728ed7f2a1565274793d768c6b5b.jpg" alt="">
+         <p>This is the best dental clinic I have visited far soon. I had very unpleasant smile because of gap between my upper two teeth. This unpleasant smile was repaired by Aesthetic filling . Also I did scaling and polishing. My all of family memebers visit there regarding any dental problems . As far as my experience I will suggest all of you seeeing the reviews to visit and get service from HealthIO .</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -217,13 +268,13 @@ if(isset($_POST['submit'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
+         <h3>Tarique Rahman</h3>
          <span>satisfied client</span>
       </div>
 
       <div class="box">
-         <img src="images/pic-2.png" alt="">
-         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos, iure? Nemo est aspernatur voluptatum id, laboriosam asperiores iure omnis alias?</p>
+         <img src="images/images (2).jpg" alt="">
+         <p>Recently I visited HealthIO for the first time . I was so fascinated by their way of welcoming , their clean environment and by their services. I had done 4 Root Canal Treatment with Zirconium crown .It was totally painless treatment with the Japanese filling materials. I think there are very few dental clinic that provide these type of World Class services. I would highly suggest this clinic for everyone!!!</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -231,13 +282,13 @@ if(isset($_POST['submit'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
+         <h3>Sajeeb Wazed </h3>
          <span>satisfied client</span>
       </div>
 
       <div class="box">
-         <img src="images/pic-3.png" alt="">
-         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos, iure? Nemo est aspernatur voluptatum id, laboriosam asperiores iure omnis alias?</p>
+         <img src="images/220px-আবুল_খায়ের_জসিম_উদ্দিন.jpg" alt="">
+         <p>Dr. Abdul Quader Rubel is an amazing and skilled Dentist. He has been my dental provider for past 6 years and practically every tooth in my mouth has been revitalized with his proficient care. Recently he has done my Aesthetic Filling on lower tooth and I was fully satisfied. I suggest all the people to visit Smile Zone once and be grateful for their service. Five stars from me for HealthIO!!!!!</p>
          <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -245,7 +296,21 @@ if(isset($_POST['submit'])){
             <i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
          </div>
-         <h3>john deo</h3>
+         <h3>Abul Khaer Joshim Uddin</h3>
+         <span>satisfied client</span>
+      </div>
+
+      <div class="box">
+         <img src="images/download (3).jpg" alt="">
+         <p>I highly recommend this dental clinic for any dental problems. My visit has been delightful experiences, something I have never said about a dental visit . The staff members are professional and welcoming. Very positive interaction with Dr. Abdul Quader Rubel. All the equipments were of advanced technology with a very good environment . Highly recommended.</p>
+         <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+         </div>
+         <h3>SM Aslam Talukder</h3>
          <span>satisfied client</span>
       </div>
 
@@ -255,34 +320,7 @@ if(isset($_POST['submit'])){
 
 <!-- reviews section ends -->
 
-<!-- contact section starts  -->
 
-<section class="contact" id="contact">
-
-   <h1 class="heading">make appointment</h1>
-
-   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-      <?php 
-         if(isset($message)){
-            foreach($message as $message){
-               echo '<p class="message">'.$message.'</p>';
-            }
-         }
-      ?>
-      <span>your name :</span>
-      <input type="text" name="name" placeholder="enter your name" class="box" required>
-      <span>your email :</span>
-      <input type="email" name="email" placeholder="enter your email" class="box" required>
-      <span>your number :</span>
-      <input type="number" name="number" placeholder="enter your number" class="box" required>
-      <span>appointment date :</span>
-      <input type="datetime-local" name="date" class="box" required>
-      <input type="submit" value="make appointment" name="submit" class="link-btn">
-   </form>  
-
-</section>
-
-<!-- contact section ends -->
 
 <!-- footer section starts  -->
 
@@ -293,27 +331,27 @@ if(isset($_POST['submit'])){
       <div class="box">
          <i class="fas fa-phone"></i>
          <h3>phone number</h3>
-         <p>+123-456-7890</p>
-         <p>+111-222-3333</p>
+         <p>+880-1797037147</p>
+         <p>+880-1928886231</p>
       </div>
       
       <div class="box">
          <i class="fas fa-map-marker-alt"></i>
          <h3>our address</h3>
-         <p>mumbai, india - 400104</p>
+         <p>Dhanmodni-19, Dhaka</p>
       </div>
 
       <div class="box">
          <i class="fas fa-clock"></i>
          <h3>opening hours</h3>
-         <p>00:07am to 10:00pm</p>
+         <p>00:09am to 10:00pm</p>
       </div>
 
       <div class="box">
          <i class="fas fa-envelope"></i>
          <h3>email address</h3>
-         <p>shaikhanas@gmail.com</p>
-         <p>anasbhai@gmail.com</p>
+         <p>ahmedistiak9999@gmail.com</p>
+         <p>istiakahmedjoy99@gmail.com</p>
       </div>
 
    </div>
@@ -336,35 +374,5 @@ if(isset($_POST['submit'])){
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
 
-</body>
-</html>
-
-<?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
-?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
-</head>
-<body>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
 </body>
 </html>
