@@ -10,9 +10,9 @@
         }
     ],
     "autoload":{
-        // "psr-4":{
-        //     "index\\":"index.php"
-        // }
+        "psr-4":{
+            "index\\":"index.php"
+        }
     },
     "require": {}
 }
