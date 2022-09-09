@@ -356,7 +356,7 @@ if(isset($_POST['submit'])){
 
    </div>
 
-   <div class="credit"> &copy; copyright @ <?php echo date('Y'); ?> by <span>Team Uranium</span>  </div>
+   <div class="credit"> &copy; copyright @ <?php echo date('Y'); ?> by <span>Istiak Ahmed Khan</span>  </div>
 
 </section>
 
