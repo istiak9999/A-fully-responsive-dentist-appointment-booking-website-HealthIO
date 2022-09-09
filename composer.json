@@ -1,3 +1,18 @@
 {
-    
+    "name": "istiak/healthio",
+    "description": "appointment app",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "istiakahmedkhan",
+            "email":"istiakahmedjoy99@gmail.com"
+        }
+    ],
+    "autoload":{
+        // "psr-4":{
+        //     "index\\":"index.php"
+        // }
+    },
+    "require": {}
 }
