@@ -1,6 +1,3 @@
-"name": "health-io",
-"description": "healthio is online appointment booking application for a dentist chember",
-"require": {
-    "php": ">=7.4",
-}
+{
+    
 }
