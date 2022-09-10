@@ -1,18 +1,20 @@
 {
-    "name": "istiak/healthio",
+    "name": "istiak/helathio",
     "description": "appointment app",
-    "type": "library",
+    "type": "project",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "istiakahmedkhan",
-            "email":"istiakahmedjoy99@gmail.com"
-        }
-    ],
-    "autoload":{
-        "psr-4":{
-            "index\\":"src"
+    "autoload": {
+        "psr-4": {
+            "Istiak\\Helathio\\": "src/"
         }
     },
-    "require": {}
+    "authors": [
+        {
+            "name": "m"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "monolog/monolog": "^2.8"
+    }
 }
