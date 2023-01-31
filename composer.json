@@ -4,9 +4,7 @@
     "type": "project",
     "license": "MIT",
     "autoload": {
-        "psr-4": {
-            "Istiak\\Helathio\\": "src/"
-        }
+        "files": ["index.php", ""]
     },
     "authors": [
         {
